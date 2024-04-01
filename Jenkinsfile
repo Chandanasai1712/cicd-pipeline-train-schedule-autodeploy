@@ -1,7 +1,6 @@
 pipeline {
     agent any
     tools   {
-        Gradle = gradle8
         JDk    = jdk17
         NodeJS = node16
     }
