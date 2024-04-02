@@ -1,7 +1,7 @@
 plugins {
 
  // https://mvnrepository.com/artifact/com.moowork.gradle/gradle-node-plugin
-implementation group: 'com.moowork.gradle', name: 'gradle-node-plugin', version: '1.2.0'
+implementation group: 'com.moowork.gradle', version: '1.2.0'
 
 }
 
