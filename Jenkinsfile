@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
-                archiveArtifacts artifacts: 'dist/trainSchedule.zip', allowArtifacts: true
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip', allow Artifacts: true
             }
         }
         stage('Build Docker Image') {
