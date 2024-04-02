@@ -11,7 +11,7 @@ pipeline {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
                 // archiveArtifacts artifacts:'dist/trainchandana.zip'
-                echo 'build started'
+                echo 'chandramukhi ga marina chandana'
             }
         }
         stage('Build Docker Image') {
