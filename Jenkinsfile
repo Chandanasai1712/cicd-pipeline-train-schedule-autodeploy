@@ -10,14 +10,13 @@ pipeline {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
-                // archiveArtifacts artifacts:'dist/trainchandana.zip'
-                echo 'chandramukhi ga marina chandana'
+                archiveArtifacts artifacts:'dist/trainchandana.zip'
             }
         }
         stage('Build Docker Image') {
-            when {
+           /*  when {
                 branch 'master'
-            }
+            } */
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
