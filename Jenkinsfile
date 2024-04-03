@@ -88,9 +88,10 @@ pipeline {
                     
                     // Apply the Kubernetes resources
                     sh """
+                        kubectl apply -f train-schedule-kube-canary.yml
                         ls -l
-                        kubectl apply -f train-schedule-canary.yml
                         kubectl scale deployment/train-schedule-deployment-canary --replicas=${CANARY_REPLICAS}
+                        
                     """
                 }
             }
