@@ -39,46 +39,75 @@ pipeline {
                 }
             }
         }
-        stage('CanaryDeploy') {
-            /* when {
-                branch 'master'
-            } */
-            environment { 
-                CANARY_REPLICAS = 1
-            }
+    //     stage('CanaryDeploy') {
+    //         /* when {
+    //             branch 'master'
+    //         } */
+    //         environment { 
+    //             CANARY_REPLICAS = 1
+    //         }
+    //         steps {
+    //             // echo 'started'
+    //             kubernetesDeploy(
+    //                 kubeconfigId: 'kubeconfig',
+    //                 configs: 'train-schedule-kube-canary.yml',
+    //                 enableConfigSubstitution: true
+    //             )
+    //             // echo 'completed'
+    //             // sh 'kubectl apply -f train-schedule-kube-canary.yml'
+    //         }
+    //     }
+    //     stage('DeployToProduction') {
+    //         /* when {
+    //             branch 'master'
+    //         } */
+    //         environment { 
+    //             CANARY_REPLICAS = 0
+    //         }
+    //         steps {
+    //             input 'Deploy to Production?'
+    //             milestone(1)
+    //             kubernetesDeploy(
+    //                 kubeconfigId: 'kubeconfig',
+    //                 configs: 'train-schedule-kube-canary.yml',
+    //                 enableConfigSubstitution: true
+    //             )
+    //             kubernetesDeploy(
+    //                 kubeconfigId: 'kubeconfig',
+    //                 configs: 'train-schedule-kube.yml',
+    //                 enableConfigSubstitution: true
+    //             )
+    //             echo 'completed 2'
+    //         }
+    //     }
+      stage('Deploy Canary') {
             steps {
-                // echo 'started'
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-                // echo 'completed'
-                // sh 'kubectl apply -f train-schedule-kube-canary.yml'
+                script {
+                    // Define the Canary replicas count
+                    def CANARY_REPLICAS = 1
+                    
+                    // Apply the Kubernetes resources
+                    sh """
+                        kubectl apply -f train-schedule-canary.yaml
+                        kubectl scale deployment/train-schedule-deployment-canary --replicas=${CANARY_REPLICAS}
+                    """
+                }
             }
         }
-        stage('DeployToProduction') {
-            /* when {
-                branch 'master'
-            } */
-            environment { 
-                CANARY_REPLICAS = 0
-            }
+        
+        stage('Deploy Stable') {
             steps {
-                input 'Deploy to Production?'
-                milestone(1)
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                )
-                echo 'completed 2'
+                script {
+                    // Define the Stable replicas count
+                    def STABLE_REPLICAS = 2
+                    
+                    // Apply the Kubernetes resources
+                    sh """
+                        kubectl apply -f train-schedule-stable.yaml
+                        kubectl scale deployment/train-schedule-deployment --replicas=${STABLE_REPLICAS}
+                    """
+                }
             }
         }
-    }
+     }
 }
