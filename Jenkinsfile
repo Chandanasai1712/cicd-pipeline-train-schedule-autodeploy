@@ -54,6 +54,7 @@ pipeline {
                 //     enableConfigSubstitution: true
                 // )
                 // echo 'completed'
+                sh 'sudo -i'
                 sh 'kubectl apply -f train-schedule-kube-canary.yml'
             }
         }
