@@ -46,14 +46,14 @@ pipeline {
                 CANARY_REPLICAS = 1
             }
             steps {
-                // echo 'started'
+                echo 'started'
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
                     enableConfigSubstitution: true
                 )
-                // echo 'completed'
-                // sh 'kubectl apply -f train-schedule-kube-canary.yml'
+                echo 'completed'
+                sh 'kubectl apply -f train-schedule-kube-canary.yml'
             }
         }
         stage('DeployToProduction') {
@@ -79,16 +79,16 @@ pipeline {
                 echo 'completed 2'
             }
         } 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    sh """
-                        kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube-canary.yml
-                        kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube.yml
-                    """
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                 kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube-canary.yml
+        //                 kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube.yml
+        //             """
+        //         }
+        //     }
+        // }
     //   stage('Deploy Canary') {
     //         steps {
     //             script {
