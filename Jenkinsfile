@@ -53,7 +53,7 @@ pipeline {
                     enableConfigSubstitution: true
                 )
                 echo 'completed'
-                sh 'kubectl apply -f train-schedule-kube-canary.yml'
+                sh 'kubectl apply --dry-run=client -f train-schedule-kube-canary.yml'
             }
         }
         stage('DeployToProduction') {
