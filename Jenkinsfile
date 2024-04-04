@@ -79,6 +79,16 @@ pipeline {
                 echo 'completed 2'
             }
         } 
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh """
+                        kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube-canary.yml
+                        kubectl --kubeconfig=\$KUBECONFIG apply -f train-schedule-kube.yml
+                    """
+                }
+            }
+        }
     //   stage('Deploy Canary') {
     //         steps {
     //             script {
