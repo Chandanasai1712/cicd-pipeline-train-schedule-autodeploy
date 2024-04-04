@@ -51,7 +51,7 @@ pipeline {
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: false
+                    enableConfigSubstitution: true
                 )
                 // echo 'completed'
                 // sh 'kubectl apply -f train-schedule-kube-canary.yml'
@@ -70,12 +70,12 @@ pipeline {
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: false
+                    enableConfigSubstitution: true
                 )
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: false
+                    enableConfigSubstitution: true
                 )
                 echo 'completed 2'
             }
