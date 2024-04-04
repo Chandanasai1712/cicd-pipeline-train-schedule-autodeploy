@@ -49,11 +49,11 @@ pipeline {
                 echo 'started'
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
+                    configs: 'train-schedule-kube.yml',
                     enableConfigSubstitution: true
                 )
                 echo 'completed'
-                sh 'scm kubectl apply -f train-schedule-kube-canary.yml'
+                sh 'scm kubectl apply -f train-schedule-kube.yml'
             }
         }
         // stage('DeployToProduction') {
