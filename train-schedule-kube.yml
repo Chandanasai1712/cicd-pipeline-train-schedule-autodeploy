@@ -8,7 +8,7 @@ spec:
     app: train-schedule
   ports:
   - protocol: TCP
-    port: 8080
+    port: 8085
     nodePort: 30526
 
 ---
@@ -35,11 +35,11 @@ spec:
       - name: train-schedule
         image: registry.hub.docker.com/chandana1712/train-schedule:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 8085
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 8085
           initialDelaySeconds: 15
           timeoutSeconds: 1
           periodSeconds: 10
