@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
-                archiveArtifacts artifacts:'dist/trainchandana.zip'
+                archiveArtifacts artifacts:'dist/trainSchedule.zip'
             }
         }
         stage('Build Docker Image') {
@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage('CanaryDeploy') {
+        stage('kubernetesDeploy') {
             /* when {
                 branch 'master'
             } */
