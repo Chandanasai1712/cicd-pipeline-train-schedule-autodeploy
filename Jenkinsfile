@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                sh './gradlew build --scan --no-daemon'
+                sh './gradlew build --no-daemon'
                 archiveArtifacts artifacts:'dist/trainSchedule.zip'
             }
         }
@@ -26,9 +26,9 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            /* when {
+            when {
                 branch 'master'
-            } */
+            } 
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
@@ -39,9 +39,9 @@ pipeline {
             }
         }
         stage('kubernetesDeploy') {
-            /* when {
+             when {
                 branch 'master'
-            } */
+            } 
             environment { 
                 CANARY_REPLICAS = 1
             }
