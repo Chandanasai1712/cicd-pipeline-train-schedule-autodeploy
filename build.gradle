@@ -49,5 +49,5 @@ task npm_build(type: NpmTask) {
 build.dependsOn zip
 zip.dependsOn npm_build
 npm_build.dependsOn npm_test
-npm_test.dependsOn npmInstall
-npm_build.dependsOn npmInstall
+npm_test.dependsOn npmInstall1
+npm_build.dependsOn npmInstall1
