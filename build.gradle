@@ -26,28 +26,9 @@ task zip(type: Zip) {
 	}
 	destinationDir(file("dist"))
 	baseName "trainSchedule"
-}
-
-// Declare npm tasks
-task npmInstall(type: NpmTask) {
-    dependsOn = []
-    args = ['install']
-}
-
-task npm_test(type: NpmTask) {
-    dependsOn = npmInstall
-    args = ['test']
-}
-
-task npm_build(type: NpmTask) {
-    dependsOn = npmInstall
-    args = ['build']
-}
-
-
-//declare task dependencies
+} //declare task dependencies
 build.dependsOn zip
 zip.dependsOn npm_build
 npm_build.dependsOn npm_test
-npm_test.dependsOn npmInstall1
-npm_build.dependsOn npmInstall1
+npm_test.dependsOn npmInstall
+npm_build.dependsOn npmInstall
